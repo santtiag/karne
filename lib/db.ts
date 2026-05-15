@@ -1,4 +1,4 @@
-import { supabase } from "./supabase";
+import { getSupabase } from "./supabase";
 
 export interface Pedido {
   id: number;
@@ -17,7 +17,7 @@ export interface Pedido {
 export async function createPedido(
   data: Omit<Pedido, "id" | "created_at" | "updated_at">
 ) {
-  const { data: result, error } = await supabase
+  const { data: result, error } = await getSupabase()
     .from("pedidos")
     .insert({
       nombre: data.nombre,
@@ -40,7 +40,7 @@ export async function createPedido(
 }
 
 export async function getPedidos(estado?: string, tipoServicio?: string) {
-  let query = supabase.from("pedidos").select("*").order("created_at", { ascending: false });
+  let query = getSupabase().from("pedidos").select("*").order("created_at", { ascending: false });
 
   if (estado) {
     query = query.eq("estado", estado);
@@ -60,7 +60,7 @@ export async function getPedidos(estado?: string, tipoServicio?: string) {
 }
 
 export async function getPedidoById(id: number) {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("pedidos")
     .select("*")
     .eq("id", id)
@@ -75,7 +75,7 @@ export async function getPedidoById(id: number) {
 }
 
 export async function updatePedidoEstado(id: number, estado: string) {
-  const { error } = await supabase
+  const { error } = await getSupabase()
     .from("pedidos")
     .update({ estado, updated_at: new Date().toISOString() })
     .eq("id", id);

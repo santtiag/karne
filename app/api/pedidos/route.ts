@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createPedido, getPedidos } from "@/lib/db";
-import { supabaseServer } from "@/lib/supabase-server";
+import { getSupabaseServer } from "@/lib/supabase-server";
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     const comprobanteFileName = `${timestamp}-comprobante-${comprobante.name}`;
 
     // Subir archivos a Supabase Storage
-    const { error: carnetError } = await supabaseServer.storage
+    const { error: carnetError } = await getSupabaseServer().storage
       .from("pedidos")
       .upload(carnetFileName, archivoCarnet, { contentType: archivoCarnet.type });
 
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { error: comprobanteError } = await supabaseServer.storage
+    const { error: comprobanteError } = await getSupabaseServer().storage
       .from("pedidos")
       .upload(comprobanteFileName, comprobante, { contentType: comprobante.type });
 
@@ -65,8 +65,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Obtener URLs públicas
-    const { data: carnetUrl } = supabaseServer.storage.from("pedidos").getPublicUrl(carnetFileName);
-    const { data: comprobanteUrl } = supabaseServer.storage.from("pedidos").getPublicUrl(comprobanteFileName);
+    const { data: carnetUrl } = getSupabaseServer().storage.from("pedidos").getPublicUrl(carnetFileName);
+    const { data: comprobanteUrl } = getSupabaseServer().storage.from("pedidos").getPublicUrl(comprobanteFileName);
 
     const pedidoId = await createPedido({
       nombre,

@@ -1,7 +1,7 @@
-import { supabase } from "./supabase";
+import { getSupabase } from "./supabase";
 
 export async function uploadFile(bucket: string, file: File, filePath: string) {
-  const { data, error } = await supabase.storage
+  const { data, error } = await getSupabase().storage
     .from(bucket)
     .upload(filePath, file, { upsert: true });
 
@@ -13,6 +13,6 @@ export async function uploadFile(bucket: string, file: File, filePath: string) {
 }
 
 export function getPublicUrl(bucket: string, filePath: string) {
-  const { data } = supabase.storage.from(bucket).getPublicUrl(filePath);
+  const { data } = getSupabase().storage.from(bucket).getPublicUrl(filePath);
   return data.publicUrl;
 }
