@@ -48,7 +48,7 @@ function PedidoForm() {
   const [success, setSuccess] = useState(false);
   const [pedidoId, setPedidoId] = useState<number | null>(null);
 
-  const precio = tipoServicio === "personalizado" ? "$12.000" : "$8.000";
+  const precio = tipoServicio === "personalizado" ? "$10.000" : "$8.000";
 
   useEffect(() => {
     if (tipoServicio) {
@@ -185,7 +185,7 @@ function PedidoForm() {
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
                         <h3 className="text-lg font-semibold">Servicio Personalizado</h3>
-                        <span className="text-xl font-bold">$12.000</span>
+                        <span className="text-xl font-bold">$10.000</span>
                       </div>
                       <p className="text-sm text-muted-foreground mt-1">
                         Elige un diseño exclusivo de nuestra galería y destaca tu estilo.

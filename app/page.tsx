@@ -112,7 +112,7 @@ export default function HomePage() {
                     <h3 className="text-xl font-bold mb-1">Servicio Personalizado</h3>
                     <p className="text-sm text-muted-foreground">Elige un diseño exclusivo de nuestra galería</p>
                   </div>
-                  <p className="text-3xl font-bold">$12.000</p>
+                  <p className="text-3xl font-bold">$10.000</p>
                   <Button className="w-full">
                     Elegir personalizado
                     <ArrowRight className="w-4 h-4 ml-2" />
@@ -233,7 +233,7 @@ export default function HomePage() {
               </Link>
               <Link href="/pedido?tipo=personalizado">
                 <Button size="lg" className="text-lg px-8">
-                  Personalizado $12k
+                  Personalizado $10k
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
