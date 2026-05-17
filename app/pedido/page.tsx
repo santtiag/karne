@@ -21,6 +21,12 @@ const DISENOS = [
   "Diseño_5.png",
   "Diseño_6.png",
   "Diseño_7.png",
+  "Diseño_8.png",
+  "Diseño_9.png",
+  "Diseño_10.png",
+  "Diseño_11.png",
+  "Diseño_12.png",
+  "Diseño_13.png",
 ];
 
 function PedidoForm() {

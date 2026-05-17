@@ -153,7 +153,7 @@ export default function HomePage() {
               {
                 icon: CheckCircle2,
                 title: "3. Recibe tu carnet",
-                desc: "Te avisamos por WhatsApp cuando esté listo para que pases a recogerlo.",
+                desc: "Te avisamos por WhatsApp cuando esté listo.",
               },
             ].map((step, i) => (
               <motion.div
@@ -191,7 +191,7 @@ export default function HomePage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Clock, title: "Rápido", desc: "Entrega en menos de 24 horas" },
+              { icon: Clock, title: "Rápido", desc: "Entrega entre 2 a 3 días hábiles" },
               { icon: Shield, title: "Seguro", desc: "Tus datos están protegidos" },
               { icon: Zap, title: "Fácil", desc: "Proceso 100% online" },
               { icon: CreditCard, title: "Económico", desc: "El mejor precio del campus" },
@@ -223,7 +223,7 @@ export default function HomePage() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para tu carnet?</h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              No esperes más. Solicítalo ahora y recíbelo mañana mismo.
+              No esperes más. Solicítalo ahora y recíbelo lo más pronto.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/pedido?tipo=basico">
