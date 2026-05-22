@@ -1,26 +1,38 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  ArrowRight,
-  Shield,
-  Zap,
-  Clock,
-  CreditCard,
   MessageCircle,
+  Palette,
   Upload,
   CheckCircle2,
-  Palette,
-  Sparkles,
+  ArrowRight,
+  Shield,
+  Clock,
+  Zap,
+  CreditCard,
+  Eye,
 } from "lucide-react";
+import Link from "next/link";
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573001234567";
+const WHATSAPP_NUMBER = "573146654681";
+const WHATSAPP_DISPLAY = "3146654681";
+
+const PREVIEW_DESIGN = [
+  "Diseño_1.png",
+  "Diseño_2.png",
+  "Diseño_3.png",
+  "Diseño_4.png",
+];
 
 export default function HomePage() {
+  const mensajePropio = encodeURIComponent(
+    "Hola! Ya tengo mi diseño/lista para el carnet estudiantil y quisiera hacer el pedido."
+  );
+
   return (
     <div className="relative overflow-hidden">
       {/* Background gradient */}
@@ -30,7 +42,7 @@ export default function HomePage() {
 
       <div className="relative max-w-6xl mx-auto px-4">
         {/* Hero */}
-        <section className="min-h-screen flex flex-col items-center justify-center text-center pt-20 pb-16">
+        <section className="min-h-[60vh] flex flex-col items-center justify-center text-center pt-20 pb-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -43,20 +55,21 @@ export default function HomePage() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary"
             >
-              <Zap className="w-4 h-4" />
-              <span>Rápido, seguro y sin filas</span>
+              <Palette className="w-4 h-4" />
+              <span>Diseños únicos para tu carnet</span>
             </motion.div>
 
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               Tu carnet{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/60">
-                estudiantil
+                personalizado
               </span>{" "}
-              en minutos
+              por $10.000
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Sube tu carnet actual, paga por Nequi y recibe tu nuevo carnet impreso con protector y escarapela.
+              Elige un diseño de nuestra galería o envíanos el tuyo por WhatsApp.
+              Te lo preparamos e imprimimos con calidad.
             </p>
 
             <motion.div
@@ -65,66 +78,104 @@ export default function HomePage() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
             >
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="text-lg px-8">
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${mensajePropio}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="text-lg px-8">
                   <MessageCircle className="w-5 h-5 mr-2" />
-                  Escríbenos
+                  Escribir por WhatsApp
                 </Button>
               </a>
+              <Link href="/galeria">
+                <Button size="lg" variant="outline" className="text-lg px-8">
+                  <Palette className="w-5 h-5 mr-2" />
+                  Ver diseños
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
+        </section>
 
-          {/* Servicios */}
+        {/* Preview de diseños */}
+        <section className="py-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="grid md:grid-cols-2 gap-6 mt-16 max-w-3xl w-full"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
           >
-            {/* Básico */}
-            <Link href="/pedido?tipo=basico">
-              <Card className="h-full border-border/50 bg-card/50 backdrop-blur hover:border-primary/40 hover:bg-card/80 transition-all cursor-pointer group">
-                <CardContent className="pt-8 pb-8 text-center space-y-4">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10">
-                    <Sparkles className="w-7 h-7 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-1">Servicio Básico</h3>
-                    <p className="text-sm text-muted-foreground">Tu carnet actual, impreso con calidad</p>
-                  </div>
-                  <p className="text-3xl font-bold">$8.000</p>
-                  <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    Elegir básico
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Nuestros diseños</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Estos son algunos de los diseños disponibles. Explora la galería completa y elige el que más te guste.
+            </p>
+          </motion.div>
 
-            {/* Personalizado */}
-            <Link href="/pedido?tipo=personalizado">
-              <Card className="h-full border-primary/30 bg-primary/5 backdrop-blur hover:border-primary/60 hover:bg-primary/10 transition-all cursor-pointer group">
-                <CardContent className="pt-8 pb-8 text-center space-y-4">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/20">
-                    <Palette className="w-7 h-7 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-1">Servicio Personalizado</h3>
-                    <p className="text-sm text-muted-foreground">Elige un diseño exclusivo de nuestra galería</p>
-                  </div>
-                  <p className="text-3xl font-bold">$10.000</p>
-                  <Button className="w-full">
-                    Elegir personalizado
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {PREVIEW_DESIGN.map((diseno, index) => (
+              <motion.div
+                key={diseno}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+                className="overflow-hidden rounded-xl border border-border/50 aspect-[3/4]"
+              >
+                <img
+                  src={`/disenos/${diseno}`}
+                  alt={`Diseño ${diseno.replace(/\.[^/.]+$/, "").replace(/_/g, " ")}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link href="/galeria">
+              <Button size="lg" variant="outline" className="text-lg px-8">
+                <Eye className="w-5 h-5 mr-2" />
+                Ver todos los diseños
+              </Button>
             </Link>
+          </div>
+        </section>
+
+        {/* CTA: Ya tengo mi diseño */}
+        <section className="py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/20 to-accent/20 border border-border/50 p-10 md:p-14 text-center"
+          >
+            <div className="flex flex-col items-center gap-4">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/20">
+                <Upload className="w-7 h-7 text-primary" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold">¿Ya tienes tu diseño?</h2>
+              <p className="text-muted-foreground max-w-md">
+                Si ya tienes tu propio diseño o el carnet listo, envíanoslo por WhatsApp y lo preparamos.
+              </p>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${mensajePropio}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="text-lg px-8 mt-2">
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Pedir por WhatsApp
+                </Button>
+              </a>
+            </div>
           </motion.div>
         </section>
 
         {/* How it works */}
-        <section className="py-20">
+        <section className="py-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -141,19 +192,19 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: Upload,
-                title: "1. Sube tu carnet",
-                desc: "Toma una foto o escanea tu carnet actual y súbelo en formato PDF o imagen.",
+                icon: Palette,
+                title: "1. Elige tu diseño",
+                desc: "Explora la galería y selecciona el diseño que más te guste, o envíanos el tuyo por WhatsApp.",
               },
               {
-                icon: CreditCard,
-                title: "2. Paga por Nequi",
-                desc: "Realiza la transferencia a nuestro número y sube el comprobante de pago.",
+                icon: MessageCircle,
+                title: "2. Coordinamos por WhatsApp",
+                desc: "Te contactamos para confirmar detalles, personalizar y coordinar el pago por Nequi.",
               },
               {
                 icon: CheckCircle2,
                 title: "3. Recibe tu carnet",
-                desc: "Te avisamos por WhatsApp cuando esté listo.",
+                desc: "Preparamos tu carnet con calidad y te avisamos cuando esté listo para entrega.",
               },
             ].map((step, i) => (
               <motion.div
@@ -178,7 +229,7 @@ export default function HomePage() {
         </section>
 
         {/* Features / Trust */}
-        <section className="py-20">
+        <section className="py-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -193,8 +244,8 @@ export default function HomePage() {
             {[
               { icon: Clock, title: "Rápido", desc: "Entrega entre 2 a 3 días hábiles" },
               { icon: Shield, title: "Seguro", desc: "Tus datos están protegidos" },
-              { icon: Zap, title: "Fácil", desc: "Proceso 100% online" },
-              { icon: CreditCard, title: "Económico", desc: "El mejor precio del campus" },
+              { icon: Zap, title: "Fácil", desc: "Proceso 100% por WhatsApp" },
+              { icon: CreditCard, title: "Precio único", desc: "$10.000 con personalización incluida" },
             ].map((feature, i) => (
               <motion.div
                 key={feature.title}
@@ -212,8 +263,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-20">
+        {/* CTA Final */}
+        <section className="py-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -223,28 +274,28 @@ export default function HomePage() {
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para tu carnet?</h2>
             <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-              No esperes más. Solicítalo ahora y recíbelo lo más pronto.
+              Escríbenos por WhatsApp y en minutos coordinamos tu pedido. Solo $10.000 todo incluido.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/pedido?tipo=basico">
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  Básico $8k
-                </Button>
-              </Link>
-              <Link href="/pedido?tipo=personalizado">
-                <Button size="lg" className="text-lg px-8">
-                  Personalizado $10k
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-            </div>
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${mensajePropio}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="text-lg px-8">
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Escribir por WhatsApp
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </a>
           </motion.div>
         </section>
 
         {/* Footer */}
         <footer className="py-12 border-t border-border/50 text-center text-sm text-muted-foreground">
           <p>© 2026 Karne. Hecho para estudiantes por estudiantes.</p>
-          <p className="mt-2">Contacto: {WHATSAPP_NUMBER.replace("57", "")} · Nequi</p>
+          <p className="mt-2">
+            Contacto: {WHATSAPP_DISPLAY} · Nequi
+          </p>
         </footer>
       </div>
     </div>

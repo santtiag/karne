@@ -1,50 +1,74 @@
 "use client";
 
-import React, { useState } from "react";
-import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 
-interface DisenoGalleryProps {
-  disenos: string[];
-  seleccionado: string | null;
-  onSelect: (diseno: string) => void;
+const WHATSAPP_NUMBER = "573146654681";
+
+const DISENOS = [
+  "Diseño_1.png",
+  "Diseño_2.png",
+  "Diseño_3.png",
+  "Diseño_4.png",
+  "Diseño_5.png",
+  "Diseño_6.png",
+  "Diseño_7.png",
+  "Diseño_8.png",
+  "Diseño_9.png",
+  "Diseño_10.png",
+  "Diseño_11.png",
+  "Diseño_12.png",
+  "Diseño_13.png",
+];
+
+function cleanName(filename: string) {
+  return filename
+    .replace(/\.[^/.]+$/, "")
+    .replace(/_/g, " ");
 }
 
-export function DisenoGallery({ disenos, seleccionado, onSelect }: DisenoGalleryProps) {
+function getWhatsAppUrl(disenio: string) {
+  const nombre = cleanName(disenio);
+  const mensaje = `Hola! Estoy interesado en el diseño "${nombre}" para mi carnet estudiantil. Quisiera más información.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+}
+
+export function DisenoGallery() {
   return (
     <div className="w-full">
-      <p className="mb-3 text-sm font-medium text-foreground">Elige un diseño</p>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {disenos.map((diseno) => {
-          const isSelected = seleccionado === diseno;
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {DISENOS.map((diseno, index) => {
+          const nombre = cleanName(diseno);
+          const waUrl = getWhatsAppUrl(diseno);
           return (
-            <button
+            <motion.a
               key={diseno}
-              type="button"
-              onClick={() => onSelect(diseno)}
-              className={cn(
-                "relative rounded-xl overflow-hidden border-2 transition-all cursor-pointer group",
-                isSelected
-                  ? "border-primary ring-2 ring-primary/30"
-                  : "border-border hover:border-muted-foreground/40"
-              )}
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05, duration: 0.4 }}
+              className="group relative block overflow-hidden rounded-xl border border-border/50 bg-card aspect-[3/4]"
             >
               <img
                 src={`/disenos/${diseno}`}
-                alt={`Diseño ${diseno}`}
-                className="w-full aspect-[3/4] object-cover"
+                alt={`Diseño ${nombre}`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
               />
-              {isSelected && (
-                <div className="absolute inset-0 bg-primary/10 flex items-center justify-center">
-                  <div className="bg-primary text-primary-foreground rounded-full p-1.5">
-                    <Check className="w-4 h-4" />
-                  </div>
-                </div>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs py-1 px-2 text-center truncate">
-                {diseno.replace(/\.[^/.]+$/, "").replace(/-/g, " ").replace(/_/g, " ")}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-colors duration-300 flex flex-col items-center justify-center gap-3">
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-semibold text-sm text-center px-2">
+                  {nombre}
+                </span>
+                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-flex items-center gap-2 bg-green-500 text-white text-xs font-medium px-3 py-1.5 rounded-full">
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  Elegir por WhatsApp
+                </span>
               </div>
-            </button>
+            </motion.a>
           );
         })}
       </div>
