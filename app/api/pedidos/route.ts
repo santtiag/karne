@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createPedido, getPedidos } from "@/lib/db";
+import { createPedido, getPedidosConFiltros } from "@/lib/db";
 import { getSupabaseServer } from "@/lib/supabase-server";
 
 export async function POST(request: NextRequest) {
@@ -77,6 +77,11 @@ export async function POST(request: NextRequest) {
       estado: "pendiente",
       archivo_carnet: carnetUrl.publicUrl,
       comprobante_pago: comprobanteUrl.publicUrl,
+      pago_realizado: false,
+      carnet_recibido: false,
+      diseno_listo: false,
+      precio_venta: 10000,
+      notas: null,
     });
 
     return NextResponse.json(
@@ -97,7 +102,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const estado = searchParams.get("estado") || undefined;
     const tipoServicio = searchParams.get("tipo_servicio") || undefined;
-    const pedidos = await getPedidos(estado, tipoServicio);
+    const q = searchParams.get("q") || undefined;
+    const pedidos = await getPedidosConFiltros(estado, tipoServicio, q);
     return NextResponse.json(pedidos);
   } catch (error) {
     console.error("Error obteniendo pedidos:", error);
