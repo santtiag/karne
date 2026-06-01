@@ -17,6 +17,7 @@ import {
   Eye,
 } from "lucide-react";
 import Link from "next/link";
+import { PhotoCarousel } from "@/components/photo-carousel";
 
 const WHATSAPP_NUMBER = "573146654681";
 const WHATSAPP_DISPLAY = "3146654681";
@@ -96,6 +97,24 @@ export default function HomePage() {
               </Link>
             </motion.div>
           </motion.div>
+        </section>
+
+        {/* Carrusel: Así queda tu carnet */}
+        <section className="py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Así queda tu carnet</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Carnets impresos con calidad, porta-carnet resistente y cinta incluida.
+            </p>
+          </motion.div>
+
+          <PhotoCarousel />
         </section>
 
         {/* Preview de diseños */}
