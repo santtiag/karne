@@ -5,19 +5,45 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const PHOTOS = [
-  "20260525_112903.jpg",
-  "20260525_112932.jpg",
-  "20260525_113013.jpg",
-  "20260525_113047.jpg",
-  "20260525_113113.jpg",
-  "20260525_113145.jpg",
-  "20260525_113209.jpg",
-  "20260601_130717.jpg",
-  "20260601_130740.jpg",
-  "20260601_130758.jpg",
+  "20260525_112903",
+  "20260525_112932",
+  "20260525_113013",
+  "20260525_113047",
+  "20260525_113113",
+  "20260525_113145",
+  "20260525_113209",
+  "20260601_130717",
+  "20260601_130740",
+  "20260601_130758",
 ];
 
 const AUTOPLAY_DELAY = 4000;
+
+function OptimizedImage({
+  base,
+  alt,
+  loading,
+}: {
+  base: string;
+  alt: string;
+  loading?: "eager" | "lazy";
+}) {
+  return (
+    <picture>
+      <source
+        srcSet={`/photos/optimized/${base}.webp`}
+        type="image/webp"
+      />
+      <img
+        src={`/photos/optimized/${base}.jpg`}
+        alt={alt}
+        loading={loading}
+        className="absolute inset-0 w-full h-full object-cover"
+        decoding="async"
+      />
+    </picture>
+  );
+}
 
 export function PhotoCarousel() {
   const [current, setCurrent] = useState(0);
@@ -64,18 +90,22 @@ export function PhotoCarousel() {
       {/* Carrusel */}
       <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-border/50 bg-muted shadow-lg">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
-          <motion.img
+          <motion.div
             key={PHOTOS[current]}
-            src={`/photos/${PHOTOS[current]}`}
-            alt={`Carnet impreso ${current + 1} de ${PHOTOS.length}`}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0"
             custom={direction}
             variants={variants}
             initial="enter"
             animate="center"
             exit="exit"
             transition={{ duration: 0.4, ease: "easeInOut" }}
-          />
+          >
+            <OptimizedImage
+              base={PHOTOS[current]}
+              alt={`Carnet impreso ${current + 1} de ${PHOTOS.length}`}
+              loading="eager"
+            />
+          </motion.div>
         </AnimatePresence>
 
         {/* Flechas */}
