@@ -23,10 +23,10 @@ const WHATSAPP_NUMBER = "573146654681";
 const WHATSAPP_DISPLAY = "3146654681";
 
 const PREVIEW_DESIGN = [
-  "Diseño_1.png",
-  "Diseño_2.png",
-  "Diseño_3.png",
-  "Diseño_4.png",
+  "Diseño_1",
+  "Diseño_2",
+  "Diseño_3",
+  "Diseño_4",
 ];
 
 export default function HomePage() {
@@ -142,12 +142,19 @@ export default function HomePage() {
                 transition={{ delay: index * 0.1, duration: 0.4 }}
                 className="overflow-hidden rounded-xl border border-border/50 aspect-[3/4]"
               >
-                <img
-                  src={`/disenos/${diseno}`}
-                  alt={`Diseño ${diseno.replace(/\.[^/.]+$/, "").replace(/_/g, " ")}`}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                <picture className="w-full h-full">
+                  <source
+                    srcSet={`/disenos/optimized/${diseno}.webp`}
+                    type="image/webp"
+                  />
+                  <img
+                    src={`/disenos/optimized/${diseno}.jpg`}
+                    alt={`Diseño ${diseno.replace(/_/g, " ")}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </motion.div>
             ))}
           </div>

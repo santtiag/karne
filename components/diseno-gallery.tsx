@@ -7,25 +7,23 @@ import { MessageCircle } from "lucide-react";
 const WHATSAPP_NUMBER = "573146654681";
 
 const DISENOS = [
-  "Diseño_1.png",
-  "Diseño_2.png",
-  "Diseño_3.png",
-  "Diseño_4.png",
-  "Diseño_5.png",
-  "Diseño_6.png",
-  "Diseño_7.png",
-  "Diseño_8.png",
-  "Diseño_9.png",
-  "Diseño_10.png",
-  "Diseño_11.png",
-  "Diseño_12.png",
-  "Diseño_13.png",
+  "Diseño_1",
+  "Diseño_2",
+  "Diseño_3",
+  "Diseño_4",
+  "Diseño_5",
+  "Diseño_6",
+  "Diseño_7",
+  "Diseño_8",
+  "Diseño_9",
+  "Diseño_10",
+  "Diseño_11",
+  "Diseño_12",
+  "Diseño_13",
 ];
 
 function cleanName(filename: string) {
-  return filename
-    .replace(/\.[^/.]+$/, "")
-    .replace(/_/g, " ");
+  return filename.replace(/_/g, " ");
 }
 
 function getWhatsAppUrl(disenio: string) {
@@ -53,12 +51,19 @@ export function DisenoGallery() {
               transition={{ delay: index * 0.05, duration: 0.4 }}
               className="group relative block overflow-hidden rounded-xl border border-border/50 bg-card aspect-[3/4]"
             >
-              <img
-                src={`/disenos/${diseno}`}
-                alt={`Diseño ${nombre}`}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-              />
+              <picture className="w-full h-full">
+                <source
+                  srcSet={`/disenos/optimized/${diseno}.webp`}
+                  type="image/webp"
+                />
+                <img
+                  src={`/disenos/optimized/${diseno}.jpg`}
+                  alt={`Diseño ${nombre}`}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-colors duration-300 flex flex-col items-center justify-center gap-3">
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-semibold text-sm text-center px-2">
                   {nombre}

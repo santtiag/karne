@@ -31,11 +31,11 @@ function OptimizedImage({
   return (
     <picture>
       <source
-        srcSet={`/photos/optimized/${base}.webp`}
+        srcSet={`/photos/${base}.webp`}
         type="image/webp"
       />
       <img
-        src={`/photos/optimized/${base}.jpg`}
+        src={`/photos/${base}.jpg`}
         alt={alt}
         loading={loading}
         className="absolute inset-0 w-full h-full object-cover"
